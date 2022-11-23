@@ -1,14 +1,13 @@
 <template>
-  <div class="app">
-    <!-- <h2>app</h2> -->
-    <router-view />
+  <div class="Admin">
+    <h2>Admin</h2>
   </div>
 </template>
 
 <script setup lang="ts"></script>
 
 <style lang="less" scoped>
-.app {
+.Admin {
   color: red;
 }
 </style>
