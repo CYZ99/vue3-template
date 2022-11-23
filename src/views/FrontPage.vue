@@ -11,6 +11,7 @@
 import useCountStore from '@/store/modules/useCountStore'
 const countStore = useCountStore()
 function incrementClick() {
+  console.log(import.meta.env.VITE_API_URL)
   countStore.incrementAction()
 }
 </script>
