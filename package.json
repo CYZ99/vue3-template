@@ -12,6 +12,7 @@
   "dependencies": {
     "@element-plus/icons-vue": "^2.0.10",
     "@iconify/iconify": "^3.0.0",
+    "axios": "^1.2.0",
     "element-plus": "^2.2.22",
     "pinia": "^2.0.25",
     "vue": "^3.2.41",
