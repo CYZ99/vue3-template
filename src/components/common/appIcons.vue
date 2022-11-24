@@ -11,8 +11,4 @@ const props = defineProps<{
 }>()
 </script>
 
-<style lang="less" scoped>
-.app-icon {
-  color: red;
-}
-</style>
+<style lang="less" scoped></style>

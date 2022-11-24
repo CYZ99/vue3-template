@@ -18,6 +18,6 @@ function incrementClick() {
 
 <style lang="less" scoped>
 .front {
-  color: red;
+  color: blue;
 }
 </style>

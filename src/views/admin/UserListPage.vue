@@ -1,0 +1,9 @@
+<template>
+  <div class="userList">
+    <h2>userList</h2>
+  </div>
+</template>
+
+<script setup lang="ts"></script>
+
+<style lang="less" scoped></style>

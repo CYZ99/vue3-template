@@ -4,9 +4,10 @@
       <el-header class="header-top">
         <div class="header-left ml-5">
           <span class="title">后台管理系统</span>
-        </div>
-        <div class="text-black">
-          <app-icons icon="mdi:magnify" />
+          <span class="text-red-500 text-2xl ml-10">
+            <app-icons icon="line-md:menu-fold-right" v-if="collapse" @click="handleAsideChange" />
+            <app-icons v-else icon="line-md:menu-fold-left" @click="handleAsideChange" />
+          </span>
         </div>
         <div class="header-right">
           <el-dropdown>
@@ -22,9 +23,34 @@
           </el-dropdown>
         </div>
       </el-header>
-      <el-container>
-        <el-aside width="200px" class="aside">Aside</el-aside>
-        <el-main class="main">Main</el-main>
+      <el-container class="aside-container">
+        <el-aside :width="asideWidth" class="aside">
+          <el-menu
+            class="el-menu-vertical-demo"
+            :collapse="collapse"
+            :collapse-transition="false"
+            @select="handleMenuChange"
+          >
+            <el-menu-item index="1">
+              <el-icon>
+                <Setting />
+              </el-icon>
+              <span>控制面板</span>
+            </el-menu-item>
+            <el-sub-menu index="2">
+              <template #title>
+                <el-icon>
+                  <User />
+                </el-icon>
+                <span>用户管理</span>
+              </template>
+              <el-menu-item index="2-1">用户列表</el-menu-item>
+            </el-sub-menu>
+          </el-menu>
+        </el-aside>
+        <el-main class="main">
+          <router-view></router-view>
+        </el-main>
       </el-container>
     </el-container>
   </div>
@@ -32,6 +58,31 @@
 
 <script setup lang="ts">
 import AppIcons from '@/components/common/appIcons.vue'
+import { ref, computed } from 'vue'
+import { User, Setting } from '@element-plus/icons-vue'
+import { useRouter } from 'vue-router'
+const asideWidth = ref('200px')
+
+const collapse = computed(() => {
+  return asideWidth.value !== '200px'
+})
+
+const router = useRouter()
+// 选中菜单进行路由跳转
+const handleMenuChange = (index: string) => {
+  switch (index) {
+    case '1':
+      router.push({ name: 'Dashboard' })
+      break
+    case '2-1':
+      router.push({ name: 'UserList' })
+      break
+  }
+}
+
+const handleAsideChange = () => {
+  asideWidth.value = asideWidth.value === '200px' ? '60px' : '200px'
+}
 </script>
 
 <style lang="less" scoped>
@@ -44,19 +95,28 @@ import AppIcons from '@/components/common/appIcons.vue'
 }
 
 .header-top {
-  @apply bg-indigo-300;
+  @apply bg-gray-300;
   display: flex;
   align-items: center;
   justify-content: space-between;
 
   .header-left {
+    display: flex;
+    align-items: center;
     font-size: 20px;
     font-weight: 16px;
   }
 }
 
+.aside-container {
+  height: calc(100% - 60px);
+  overflow-y: auto;
+}
+
 .aside {
-  @apply bg-slate-200;
+  transition: width ease 0.15s;
+  @apply bg-white;
+  overflow-x: hidden;
 }
 
 .main {
